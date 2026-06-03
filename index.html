@@ -1296,6 +1296,11 @@ function deleteNode() {
 function closeDlg(id) { $(id).close(); }
 ['taskDlg','nodeDlg','ideaDlg'].forEach(id=>$(id).addEventListener('click',e=>{ if(e.target===$(id)) $(id).close(); }));
 
+// Enter to save
+$('taskDlg').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();saveTask();}});
+$('nodeDlg').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();saveNode();}});
+$('ideaDlg').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();saveIdea();}});
+
 function toast(msg) {
   const t=$('toast'); t.textContent=msg; t.classList.add('on');
   clearTimeout(toast._t); toast._t=setTimeout(()=>t.classList.remove('on'),2600);
