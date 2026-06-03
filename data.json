@@ -89,6 +89,12 @@
       "title": "Alertas Sobreventas",
       "note": "",
       "status": "pending"
+    },
+    {
+      "id": "mpyk2jz51as",
+      "title": "Seguimientos ventas nuevos articulos",
+      "note": "",
+      "status": "pending"
     }
   ]
 }
