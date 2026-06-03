@@ -6,14 +6,14 @@
   <title>WBA Calendar</title>
   <style>
     :root {
-      --bg: #111916;
-      --panel: rgba(255,255,255,0.08);
-      --panel-strong: rgba(255,255,255,0.13);
-      --line: rgba(255,255,255,0.15);
-      --line-strong: rgba(255,255,255,0.26);
-      --text: #f0f4f2;
-      --muted: #8fa098;
-      --soft: #c8d5cd;
+      --bg: #1a2520;
+      --panel: rgba(255,255,255,0.09);
+      --panel-strong: rgba(255,255,255,0.14);
+      --line: rgba(255,255,255,0.16);
+      --line-strong: rgba(255,255,255,0.28);
+      --text: #eef2f0;
+      --muted: #8a9b92;
+      --soft: #c4d2ca;
       --green: #2bf59a;
       --green-dark: #0d8f5c;
       --aqua: #35d2d9;
@@ -21,16 +21,16 @@
       --red: #ff6868;
       --violet: #b994ff;
       --radius: 8px;
-      --shadow: 0 20px 60px rgba(0,0,0,0.26);
+      --shadow: 0 18px 50px rgba(0,0,0,0.22);
     }
     * { box-sizing: border-box; }
     html { color-scheme: dark; }
     body {
       margin: 0; min-height: 100vh; color: var(--text);
       background:
-        radial-gradient(circle at 18% 10%, rgba(43,245,154,0.14), transparent 30rem),
-        radial-gradient(circle at 85% 2%,  rgba(53,210,217,0.10), transparent 28rem),
-        linear-gradient(145deg, #111916 0%, #172420 54%, #111916 100%);
+        radial-gradient(circle at 18% 10%, rgba(43,245,154,0.12), transparent 32rem),
+        radial-gradient(circle at 85% 2%,  rgba(53,210,217,0.09), transparent 28rem),
+        linear-gradient(145deg, #1a2520 0%, #223530 54%, #1a2520 100%);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       letter-spacing: 0;
     }
@@ -53,7 +53,7 @@
       position: sticky; top: 0; height: 100vh;
       display: flex; flex-direction: column; gap: 1rem;
       padding: 1rem;
-      background: rgba(14,20,17,0.78);
+      background: rgba(22,34,28,0.82);
       border-right: 1px solid var(--line);
       backdrop-filter: blur(20px);
     }
@@ -296,6 +296,55 @@
     .si-date  { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
 
     /* ─────────────────────────────────────────────
+       IDEAS
+    ───────────────────────────────────────────── */
+    .ideas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+      gap: 0.75rem;
+    }
+    .idea-card {
+      padding: 1rem;
+      background:
+        linear-gradient(145deg, rgba(185,148,255,0.06), rgba(53,210,217,0.03)),
+        var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: transform 140ms, border-color 140ms, background 140ms;
+    }
+    .idea-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(185,148,255,0.5);
+      background: rgba(185,148,255,0.08);
+    }
+    .idea-card-title {
+      font-size: 1rem; font-weight: 800;
+      margin: 0 0 0.45rem; line-height: 1.25;
+    }
+    .idea-card-note {
+      font-size: 0.84rem; color: var(--muted);
+      line-height: 1.5; margin: 0 0 0.65rem;
+      overflow-wrap: anywhere;
+    }
+    .idea-card-meta { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .idea-status {
+      font-size: 0.68rem; font-weight: 800;
+      padding: 0.18rem 0.5rem; border-radius: 999px;
+      border: 1px solid;
+    }
+    .idea-status.pending  { color: var(--yellow); border-color: rgba(243,201,105,0.35); background: rgba(243,201,105,0.1); }
+    .idea-status.progress { color: var(--aqua);   border-color: rgba(53,210,217,0.35);  background: rgba(53,210,217,0.1); }
+    .idea-status.done     { color: var(--green);  border-color: rgba(43,245,154,0.35);  background: rgba(43,245,154,0.1); }
+    .idea-status.blocked  { color: var(--red);    border-color: rgba(255,104,104,0.35); background: rgba(255,104,104,0.1); }
+    .ideas-empty {
+      grid-column: 1/-1; color: var(--muted);
+      font-size: 0.88rem; padding: 2rem 0;
+    }
+
+    /* ─────────────────────────────────────────────
        BRAIN
     ───────────────────────────────────────────── */
     .brain-layout {
@@ -392,7 +441,7 @@
       position: absolute;
       bottom: calc(100% + 10px); left: 50%;
       transform: translateX(-50%);
-      background: rgba(18,26,21,0.97);
+      background: rgba(26,38,32,0.97);
       border: 1px solid var(--line-strong);
       border-radius: var(--radius);
       padding: 0.45rem 0.7rem;
@@ -452,7 +501,7 @@
 
     /* ── DIALOGS ── */
     dialog {
-      background: rgba(18,26,21,0.97); border: 1px solid var(--line-strong);
+      background: rgba(26,38,32,0.97); border: 1px solid var(--line-strong);
       border-radius: calc(var(--radius)*1.4); color: var(--text);
       padding: 1.5rem; width: 100%; max-width: 27rem;
       box-shadow: 0 32px 80px rgba(0,0,0,0.62);
@@ -482,7 +531,7 @@
     }
     .token-screen.visible { display: grid; }
     .token-box {
-      background: rgba(20,28,23,0.98); border: 1px solid var(--line-strong);
+      background: rgba(30,42,36,0.98); border: 1px solid var(--line-strong);
       border-radius: 14px; padding: 2rem; width: 100%; max-width: 24rem;
       box-shadow: var(--shadow);
     }
@@ -493,7 +542,7 @@
     #toast {
       position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9998;
       padding: 0.65rem 1rem; border-radius: var(--radius);
-      background: rgba(22,32,26,0.97); border: 1px solid var(--line-strong);
+      background: rgba(32,46,38,0.97); border: 1px solid var(--line-strong);
       font-size: 0.82rem; font-weight: 650;
       opacity: 0; transform: translateY(8px);
       transition: opacity 0.2s, transform 0.2s; pointer-events: none;
@@ -554,6 +603,29 @@
   </div>
 </dialog>
 
+<!-- Idea dialog -->
+<dialog id="ideaDlg">
+  <h3 id="iDlgTitle">Nueva idea</h3>
+  <div class="field"><label>Título</label><input type="text" id="iTitle" placeholder="Nombre de la idea…"></div>
+  <div class="field"><label>Nota</label><textarea id="iNote" placeholder="En qué consiste…"></textarea></div>
+  <div class="field">
+    <label>Estado</label>
+    <select id="iStatus">
+      <option value="pending">Pendiente</option>
+      <option value="progress">En curso</option>
+      <option value="done">Hecha</option>
+      <option value="blocked">Bloqueada</option>
+    </select>
+  </div>
+  <div class="dlg-footer-split">
+    <button class="btn danger small" id="iDelBtn" onclick="deleteIdea()" style="display:none">Eliminar</button>
+    <div style="display:flex;gap:0.5rem;margin-left:auto">
+      <button class="btn ghost small" onclick="closeDlg('ideaDlg')">Cancelar</button>
+      <button class="btn small" onclick="saveIdea()">Guardar</button>
+    </div>
+  </div>
+</dialog>
+
 <div class="app">
 
   <!-- SIDEBAR -->
@@ -587,6 +659,17 @@
         </span>
         <span class="nav-badge" id="bSeg">0</span>
       </button>
+      <button type="button" aria-selected="false" onclick="showMod('ideas',this)">
+        <span class="nav-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 1.5C5.2 1.5 3 3.7 3 6.3c0 1.6.8 3 2 3.9V12a1 1 0 001 1h4a1 1 0 001-1v-1.8c1.2-.9 2-2.3 2-3.9C13 3.7 10.8 1.5 8 1.5z" stroke="currentColor" stroke-width="1.3" fill="none"/>
+            <path d="M6 14.5h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+          Ideas
+        </span>
+        <span class="nav-badge" id="bIdeas">0</span>
+      </button>
+
       <button type="button" aria-selected="false" onclick="showMod('brain',this)">
         <span class="nav-icon">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -653,6 +736,20 @@
       <div class="seg-wrap" id="segList"></div>
     </div>
 
+    <!-- ── IDEAS ── -->
+    <div class="module" id="mod-ideas">
+      <div class="topline">
+        <div>
+          <p class="eyebrow">Mejoras pendientes</p>
+          <h2>Ideas</h2>
+        </div>
+        <div class="actions">
+          <button class="btn small" onclick="openAddIdea()">+ Idea</button>
+        </div>
+      </div>
+      <div class="ideas-grid" id="ideasGrid"></div>
+    </div>
+
     <!-- ── BRAIN ── -->
     <div class="module" id="mod-brain">
       <div class="topline">
@@ -697,7 +794,7 @@ let GH_TOKEN = '', GH_REPO = 'mjonateca/WBA-CALENDAR', fileSha = null;
 let dirty = false, autoTimer = null;
 
 // ── STATE ──
-let state = { tasks: [], nodes: [] };
+let state = { tasks: [], nodes: [], ideas: [] };
 let editTaskId = null, editNodeId = null, weekOffset = 0;
 
 // ── HELPERS ──
@@ -744,7 +841,7 @@ async function loadFromGH() {
     const data = await res.json();
     fileSha = data.sha;
     const dec = JSON.parse(atob(data.content.replace(/\n/g,'')));
-    state = { tasks: dec.tasks||[], nodes: dec.nodes||[] };
+    state = { tasks: dec.tasks||[], nodes: dec.nodes||[], ideas: dec.ideas||[] };
     setStatus('ok','Sincronizado');
   } catch(e) { setStatus('error','Error'); toast('Error: '+e.message); }
   seedOnce(); render();
@@ -799,14 +896,15 @@ function goToday()     { weekOffset=0; renderCalendar(); }
 
 // ── RENDER ──
 function render() {
-  renderCalendar(); renderSeg(); renderBrainLists(); renderBadges();
+  renderCalendar(); renderSeg(); renderIdeas(); renderBrainLists(); renderBadges();
   if($('mod-brain').classList.contains('active')) { orbitBuilt=false; setTimeout(buildOrbit,30); }
 }
 
 function renderBadges() {
   $('bCal').textContent   = state.tasks.filter(t=>!t.done).length;
   $('bSeg').textContent   = state.tasks.filter(t=>t.tag==='seguimiento'&&!t.done).length;
-  $('bBrain').textContent = state.nodes.length;
+  $('bIdeas').textContent = state.ideas.filter(i=>i.status!=='done').length;
+  $('bBrain').textContent = state.nodes.length + state.tasks.filter(t=>!t.done).length;
 }
 
 function renderCalendar() {
@@ -859,8 +957,9 @@ function renderSeg() {
 
 function renderBrainLists() {
   const il = $('brainIdeaList');
-  il.innerHTML = state.nodes.length
-    ? state.nodes.map(n=>`
+  const allBrainIdeas = [...state.nodes, ...state.ideas.filter(i=>i.status!=='done')];
+  il.innerHTML = allBrainIdeas.length
+    ? allBrainIdeas.map(n=>`
         <div class="bc-item">
           <div class="bc-dot" style="background:var(--violet)"></div>
           <div class="bc-body">
@@ -901,7 +1000,7 @@ function buildOrbit() {
   const W = arena.offsetWidth, H = arena.offsetHeight;
   const cx = W/2, cy = H/2;
 
-  const ideas = state.nodes;
+  const ideas = [...state.nodes, ...state.ideas.filter(i=>i.status!=='done')];
   const tasks  = state.tasks.filter(t=>!t.done).slice(0,14);
 
   // Three orbital rings
@@ -984,7 +1083,7 @@ function animateOrbit() {
 
   const W = arena.offsetWidth, H = arena.offsetHeight;
   const cx = W/2, cy = H/2;
-  const ideas = state.nodes;
+  const ideas = [...state.nodes, ...state.ideas.filter(i=>i.status!=='done')];
   const tasks  = state.tasks.filter(t=>!t.done).slice(0,14);
 
   const R1 = Math.min(W,H)*0.22;
@@ -1115,6 +1214,59 @@ function toggleTask(id) {
   if(t){ t.done=!t.done; markDirty(); render(); }
 }
 
+// ── IDEAS CRUD ──
+let editIdeaId = null;
+const STATUS_LABELS = { pending:'Pendiente', progress:'En curso', done:'Hecha', blocked:'Bloqueada' };
+
+function renderIdeas() {
+  const grid = $('ideasGrid');
+  if(!state.ideas.length) {
+    grid.innerHTML = '<div class="ideas-empty">Sin ideas todavia. Crea la primera.</div>';
+    return;
+  }
+  grid.innerHTML = state.ideas.map(i => `
+    <div class="idea-card" onclick="openEditIdea('${i.id}')">
+      <div class="idea-card-title">${esc(i.title)}</div>
+      ${i.note ? `<div class="idea-card-note">${esc(i.note)}</div>` : ''}
+      <div class="idea-card-meta">
+        <span class="idea-status ${i.status||'pending'}">${STATUS_LABELS[i.status]||'Pendiente'}</span>
+      </div>
+    </div>`).join('');
+}
+
+function openAddIdea() {
+  editIdeaId = null;
+  $('iDlgTitle').textContent = 'Nueva idea';
+  $('iTitle').value = ''; $('iNote').value = ''; $('iStatus').value = 'pending';
+  $('iDelBtn').style.display = 'none';
+  $('ideaDlg').showModal();
+}
+function openEditIdea(id) {
+  const i = state.ideas.find(x=>x.id===id); if(!i) return;
+  editIdeaId = id;
+  $('iDlgTitle').textContent = 'Editar idea';
+  $('iTitle').value = i.title; $('iNote').value = i.note||''; $('iStatus').value = i.status||'pending';
+  $('iDelBtn').style.display = '';
+  $('ideaDlg').showModal();
+}
+function saveIdea() {
+  const title = $('iTitle').value.trim();
+  if(!title) { toast('Introduce un titulo'); return; }
+  const note = $('iNote').value.trim(), status = $('iStatus').value;
+  if(editIdeaId) {
+    const i = state.ideas.find(x=>x.id===editIdeaId);
+    if(i) { i.title=title; i.note=note; i.status=status; }
+  } else {
+    state.ideas.push({ id:uid(), title, note, status });
+  }
+  closeDlg('ideaDlg'); markDirty(); render();
+}
+function deleteIdea() {
+  if(!editIdeaId) return;
+  state.ideas = state.ideas.filter(x=>x.id!==editIdeaId);
+  closeDlg('ideaDlg'); markDirty(); render();
+}
+
 // ── NODE CRUD ──
 function openAddNode() {
   editNodeId=null; $('nDlgTitle').textContent='Nueva idea';
@@ -1142,7 +1294,7 @@ function deleteNode() {
 
 // ── UTILS ──
 function closeDlg(id) { $(id).close(); }
-['taskDlg','nodeDlg'].forEach(id=>$(id).addEventListener('click',e=>{ if(e.target===$(id)) $(id).close(); }));
+['taskDlg','nodeDlg','ideaDlg'].forEach(id=>$(id).addEventListener('click',e=>{ if(e.target===$(id)) $(id).close(); }));
 
 function toast(msg) {
   const t=$('toast'); t.textContent=msg; t.classList.add('on');
