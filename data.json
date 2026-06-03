@@ -83,6 +83,12 @@
       "title": "Cuadro Control Compras Nacionales",
       "note": "",
       "status": "pending"
+    },
+    {
+      "id": "mpyk2ctp4tx",
+      "title": "Alertas Sobreventas",
+      "note": "",
+      "status": "pending"
     }
   ]
 }
