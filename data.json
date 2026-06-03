@@ -64,6 +64,12 @@
       "title": "Automatizar Procesar OC",
       "note": "Guarda la info de la PO en el archivo de Seguimiento, y ayuda con el envÃ­o del correo.",
       "status": "pending"
+    },
+    {
+      "id": "mpyk1hz68qq",
+      "title": "En Analisis Stock/Tienda, meter Dashboard Global",
+      "note": "QUe contenga Stocks promedio, rent promedio, Stocks/Ventas ratio,...",
+      "status": "pending"
     }
   ]
 }
