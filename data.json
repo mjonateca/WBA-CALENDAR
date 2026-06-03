@@ -77,6 +77,12 @@
       "title": "En Analisis Stock/Tienda, meter Dashboard Global",
       "note": "QUe contenga Stocks promedio, rent promedio, Stocks/Ventas ratio,...",
       "status": "pending"
+    },
+    {
+      "id": "mpyk28i989u",
+      "title": "Cuadro Control Compras Nacionales",
+      "note": "",
+      "status": "pending"
     }
   ]
 }
