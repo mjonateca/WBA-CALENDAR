@@ -1,0 +1,40 @@
+{
+  "tasks": [
+    {
+      "id": "mpy45n5famzu",
+      "title": "Compartir post Ofi-Despedida Ana",
+      "date": "2026-06-03",
+      "tag": "operaciones",
+      "done": false
+    },
+    {
+      "id": "mpy45n5fvq7n",
+      "title": "Enviar Propuestas SGAs",
+      "date": "2026-06-03",
+      "tag": "cliente",
+      "done": false
+    },
+    {
+      "id": "mpy45n5fs1s1",
+      "title": "Seguimiento Cambios Bikinis Samantha Agua Menta",
+      "date": "2026-06-03",
+      "tag": "seguimiento",
+      "done": false
+    },
+    {
+      "id": "mpy45n5ffbns",
+      "title": "Seguimiento Sandalias roxy Alexandra",
+      "date": "2026-06-05",
+      "tag": "seguimiento",
+      "done": false
+    },
+    {
+      "id": "mpy4b1i700el",
+      "title": "AUTOMATIZAR POS",
+      "date": "2026-06-03",
+      "tag": "",
+      "done": false
+    }
+  ],
+  "ideas": []
+}
