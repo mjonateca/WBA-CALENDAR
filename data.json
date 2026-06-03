@@ -41,6 +41,13 @@
       "date": "2026-06-18",
       "tag": "seguimiento",
       "done": false
+    },
+    {
+      "id": "mpyjwtsohwl",
+      "title": "Ver catalogo Blanco By Nature",
+      "date": "2026-06-05",
+      "tag": "",
+      "done": false
     }
   ],
   "nodes": [],
@@ -48,7 +55,7 @@
     {
       "id": "mpyfl2jy0u5",
       "title": "Automatizar Procesar OC",
-      "note": "Guarda la info de la PO en el archivo de Seguimiento, y ayuda con el envío del correo.",
+      "note": "Guarda la info de la PO en el archivo de Seguimiento, y ayuda con el envÃ­o del correo.",
       "status": "pending"
     }
   ]
