@@ -906,8 +906,7 @@ function buildOrbit() {
     return `<ellipse cx="${cx}" cy="${cy}" rx="${r}" ry="${r*0.42}"
       fill="none" stroke="rgba(43,245,154,${op})" stroke-width="1"
       stroke-dasharray="${da}"/>`;
-  }).join('
-') +
+  }).join('') +
   // faint connection lines from nucleus to each idea node (drawn as SVG)
   ideas.map((n,i) => {
     const angle = orbitAngles['i'+n.id] ?? (i/Math.max(ideas.length,1))*Math.PI*2;
@@ -915,8 +914,7 @@ function buildOrbit() {
     const y = cy + Math.sin(angle)*R1*0.42;
     return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"
       stroke="rgba(185,148,255,0.12)" stroke-width="1"/>`;
-  }).join('
-');
+  }).join('');
 
   // Container for beads
   const arms = $('orbitArms');
