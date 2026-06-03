@@ -289,92 +289,134 @@
     .si-date  { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
 
     /* ─────────────────────────────────────────────
-       BRAIN — same panel/card aesthetic as original
+       BRAIN
     ───────────────────────────────────────────── */
     .brain-layout {
       display: grid;
-      grid-template-columns: minmax(0,1fr) 22rem;
-      gap: 1.2rem; align-items: start;
+      grid-template-columns: minmax(0,1fr) 21rem;
+      gap: 1rem; align-items: start;
     }
 
-    /* Orbital arena */
+    /* ── Orbital arena ── */
     .orbit-arena {
-      position: relative; width: 100%; aspect-ratio: 1 / 0.78;
-      background: var(--panel);
+      position: relative; width: 100%;
+      aspect-ratio: 1 / 0.72;
+      background:
+        radial-gradient(ellipse 60% 55% at 50% 50%, rgba(43,245,154,0.07), transparent 70%),
+        var(--panel);
       border: 1px solid var(--line);
       border-radius: calc(var(--radius)*1.5);
       backdrop-filter: blur(18px);
       box-shadow: var(--shadow);
       overflow: hidden;
     }
-    /* subtle radial centre glow */
-    .orbit-arena::before {
-      content: ""; position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(ellipse 55% 45% at 50% 50%, rgba(43,245,154,0.10), transparent 70%);
-    }
 
-    /* SVG rings + nodes rendered inside */
-    #orbitSvg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    /* orbit rings (SVG) */
+    #orbitSvg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
-    /* Core nucleus */
+    /* nucleus */
     .nucleus {
-      position: absolute; transform: translate(-50%,-50%);
-      top: 50%; left: 50%;
-      width: 72px; height: 72px; border-radius: 50%;
-      display: grid; place-items: center;
-      background: linear-gradient(135deg, rgba(43,245,154,0.18), rgba(53,210,217,0.14));
-      border: 1.5px solid rgba(43,245,154,0.55);
-      box-shadow: 0 0 36px rgba(43,245,154,0.22), inset 0 1px 0 rgba(255,255,255,0.12);
-      font-size: 0.78rem; font-weight: 900; color: var(--green);
-      letter-spacing: 0.04em; pointer-events: none;
-    }
-
-    /* Orbiting node pill */
-    .orbit-node {
-      position: absolute;
+      position: absolute; top: 50%; left: 50%;
       transform: translate(-50%,-50%);
-      white-space: nowrap;
+      width: 64px; height: 64px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: radial-gradient(circle at 35% 35%, rgba(43,245,154,0.28), rgba(53,210,217,0.10));
+      border: 1.5px solid rgba(43,245,154,0.6);
+      box-shadow:
+        0 0 0 8px rgba(43,245,154,0.06),
+        0 0 0 18px rgba(43,245,154,0.03),
+        0 0 32px rgba(43,245,154,0.25);
+      font-size: 0.72rem; font-weight: 900; color: var(--green);
+      letter-spacing: 0.05em;
+      z-index: 10;
+      animation: nucleusPulse 3s ease-in-out infinite;
+    }
+    @keyframes nucleusPulse {
+      0%,100% { box-shadow: 0 0 0 8px rgba(43,245,154,0.06), 0 0 0 18px rgba(43,245,154,0.03), 0 0 32px rgba(43,245,154,0.25); }
+      50%      { box-shadow: 0 0 0 12px rgba(43,245,154,0.09), 0 0 0 26px rgba(43,245,154,0.04), 0 0 48px rgba(43,245,154,0.35); }
+    }
+
+    /* orbit arm wrapper — rotates around centre */
+    .orbit-arm {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      transform-origin: 0 0;
+      /* animation set inline per node */
+    }
+
+    /* the atom bead — sits at end of arm */
+    .atom-bead {
+      position: absolute;
+      border-radius: 50%;
       cursor: pointer;
+      /* counter-rotate so bead stays upright */
+      display: flex; align-items: center; justify-content: center;
     }
-    .orbit-node-inner {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      padding: 0.38rem 0.7rem;
-      background: rgba(255,255,255,0.085);
-      border: 1px solid rgba(255,255,255,0.16);
-      border-radius: 999px;
-      font-size: 0.78rem; font-weight: 700;
-      box-shadow: 0 8px 22px rgba(0,0,0,0.28);
-      backdrop-filter: blur(12px);
-      transition: background 0.15s, border-color 0.15s, transform 0.15s;
-      max-width: 14rem; overflow: hidden; text-overflow: ellipsis;
+    /* idea bead */
+    .atom-bead.idea {
+      width: 14px; height: 14px;
+      background: radial-gradient(circle at 35% 35%, rgba(185,148,255,0.9), rgba(140,100,220,0.7));
+      border: 1px solid rgba(185,148,255,0.8);
+      box-shadow: 0 0 10px rgba(185,148,255,0.5), 0 0 20px rgba(185,148,255,0.2);
     }
-    .orbit-node-inner:hover {
-      background: rgba(43,245,154,0.13);
-      border-color: rgba(43,245,154,0.55);
-      transform: scale(1.04);
+    .atom-bead.idea:hover {
+      width: 18px; height: 18px;
+      box-shadow: 0 0 16px rgba(185,148,255,0.7), 0 0 32px rgba(185,148,255,0.35);
     }
-    .orbit-node-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    /* task bead */
+    .atom-bead.task {
+      width: 10px; height: 10px;
+      background: radial-gradient(circle at 35% 35%, rgba(53,210,217,0.9), rgba(20,160,170,0.7));
+      border: 1px solid rgba(53,210,217,0.8);
+      box-shadow: 0 0 8px rgba(53,210,217,0.5), 0 0 16px rgba(53,210,217,0.2);
+    }
+    .atom-bead.task.seg {
+      background: radial-gradient(circle at 35% 35%, rgba(243,201,105,0.9), rgba(200,150,40,0.7));
+      border-color: rgba(243,201,105,0.8);
+      box-shadow: 0 0 8px rgba(243,201,105,0.5), 0 0 16px rgba(243,201,105,0.2);
+    }
+    .atom-bead.task:hover {
+      width: 14px; height: 14px;
+    }
 
-    /* task nodes (outer orbit) are smaller */
-    .orbit-node.task .orbit-node-inner {
-      padding: 0.28rem 0.55rem; font-size: 0.7rem; font-weight: 600;
-      background: rgba(255,255,255,0.055);
-      border-color: rgba(255,255,255,0.11);
+    /* tooltip — hidden by default, shows on hover */
+    .atom-tip {
+      position: absolute;
+      bottom: calc(100% + 10px); left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10,14,11,0.97);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      padding: 0.45rem 0.7rem;
+      font-size: 0.76rem; font-weight: 700;
+      color: var(--text); white-space: nowrap;
+      max-width: 16rem; overflow: hidden; text-overflow: ellipsis;
+      pointer-events: none;
+      opacity: 0; transition: opacity 0.15s;
+      z-index: 100;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
     }
+    .atom-bead:hover .atom-tip { opacity: 1; }
 
-    /* Side panel — same card style */
+    /* keep bead centred on the arm endpoint */
+    .atom-bead { transform: translate(-50%, -50%); }
+    .atom-bead:hover { transform: translate(-50%, -50%) scale(1.3); transition: transform 0.15s, width 0.15s, height 0.15s; }
+
+    /* connection line from nucleus (SVG drawn inline) */
+
+    /* ── Side panel ── */
     .brain-panel { display: grid; gap: 0.8rem; }
-
     .brain-card {
       background: var(--panel); border: 1px solid var(--line);
       border-radius: var(--radius); backdrop-filter: blur(18px);
       box-shadow: var(--shadow); padding: 1rem;
     }
     .bc-title {
-      font-size: 0.78rem; font-weight: 850; text-transform: uppercase;
-      letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.75rem;
+      font-size: 0.76rem; font-weight: 850; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--muted); margin-bottom: 0.75rem;
     }
-    .bc-list { display: grid; gap: 0.45rem; }
+    .bc-list { display: grid; gap: 0.4rem; }
     .bc-item {
       display: flex; align-items: flex-start; gap: 0.6rem;
       padding: 0.6rem 0.7rem;
@@ -618,9 +660,9 @@
       <div class="brain-layout">
         <!-- Orbital arena -->
         <div class="orbit-arena" id="orbitArena">
-          <svg id="orbitSvg"></svg>
-          <div class="nucleus" id="nucleus">WBA</div>
-          <div id="orbitNodes"></div>
+          <svg id="orbitSvg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible"></svg>
+          <div class="nucleus">WBA</div>
+          <div id="orbitArms"></div>
         </div>
         <!-- Side panel -->
         <div class="brain-panel">
@@ -735,7 +777,7 @@ function showMod(id, btn) {
   document.querySelectorAll('.module').forEach(m=>m.classList.remove('active'));
   document.querySelectorAll('.nav button').forEach(b=>b.setAttribute('aria-selected','false'));
   $('mod-'+id).classList.add('active'); btn.setAttribute('aria-selected','true');
-  if(id==='brain') { setTimeout(initOrbit,60); }
+  if(id==='brain') { orbitBuilt=false; setTimeout(buildOrbit,60); }
 }
 
 // ── WEEK ──
@@ -749,7 +791,10 @@ function changeWeek(d) { weekOffset+=d; renderCalendar(); }
 function goToday()     { weekOffset=0; renderCalendar(); }
 
 // ── RENDER ──
-function render() { renderCalendar(); renderSeg(); renderBrainLists(); renderBadges(); }
+function render() {
+  renderCalendar(); renderSeg(); renderBrainLists(); renderBadges();
+  if($('mod-brain').classList.contains('active')) { orbitBuilt=false; setTimeout(buildOrbit,30); }
+}
 
 function renderBadges() {
   $('bCal').textContent   = state.tasks.filter(t=>!t.done).length;
@@ -830,76 +875,144 @@ function renderBrainLists() {
 }
 
 // ── ORBIT ──
-let orbitAF = null, orbitAngles = {};
+let orbitAF = null, orbitAngles = {}, orbitSpeeds = {};
+let orbitBuilt = false;
 
 function initOrbit() {
+  orbitBuilt = false;
   if(orbitAF) cancelAnimationFrame(orbitAF);
-  orbitAngles = {};
-  animateOrbit();
+  buildOrbit();
 }
 
-function animateOrbit() {
+function buildOrbit() {
   const arena = $('orbitArena');
   if(!arena) return;
   const W = arena.offsetWidth, H = arena.offsetHeight;
   const cx = W/2, cy = H/2;
 
-  // Ideas: inner orbit, Tasks: outer orbit
-  const ideaNodes = state.nodes;
-  const taskNodes = state.tasks.filter(t=>!t.done).slice(0,12);
+  const ideas = state.nodes;
+  const tasks  = state.tasks.filter(t=>!t.done).slice(0,14);
 
-  const innerR = Math.min(W,H)*0.28;
-  const outerR = Math.min(W,H)*0.43;
-
-  // Init angles
-  ideaNodes.forEach((n,i) => {
-    if(orbitAngles['i'+n.id]===undefined)
-      orbitAngles['i'+n.id] = (i/Math.max(ideaNodes.length,1))*Math.PI*2;
-  });
-  taskNodes.forEach((t,i) => {
-    if(orbitAngles['t'+t.id]===undefined)
-      orbitAngles['t'+t.id] = (i/Math.max(taskNodes.length,1))*Math.PI*2;
-  });
-
-  // Tick
-  ideaNodes.forEach((n,i) => { orbitAngles['i'+n.id] += 0.0006 + i*0.00005; });
-  taskNodes.forEach((t,i) => { orbitAngles['t'+t.id] += 0.0004 + i*0.00003; });
+  // Three orbital rings
+  const R1 = Math.min(W,H) * 0.22;  // inner  — ideas
+  const R2 = Math.min(W,H) * 0.36;  // middle — tasks
+  const R3 = Math.min(W,H) * 0.46;  // outer  — overflow tasks
 
   // SVG rings
   const svg = $('orbitSvg');
-  svg.innerHTML = `
-    <ellipse cx="${cx}" cy="${cy}" rx="${innerR}" ry="${innerR*0.38}" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="3 5"/>
-    <ellipse cx="${cx}" cy="${cy}" rx="${outerR}" ry="${outerR*0.38}" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="3 7"/>
-  `;
+  svg.innerHTML = [R1,R2,R3].map((r,i) => {
+    const op = [0.12, 0.09, 0.06][i];
+    const da = ['4 6','3 8','2 9'][i];
+    return `<ellipse cx="${cx}" cy="${cy}" rx="${r}" ry="${r*0.42}"
+      fill="none" stroke="rgba(43,245,154,${op})" stroke-width="1"
+      stroke-dasharray="${da}"/>`;
+  }).join('
+') +
+  // faint connection lines from nucleus to each idea node (drawn as SVG)
+  ideas.map((n,i) => {
+    const angle = orbitAngles['i'+n.id] ?? (i/Math.max(ideas.length,1))*Math.PI*2;
+    const x = cx + Math.cos(angle)*R1;
+    const y = cy + Math.sin(angle)*R1*0.42;
+    return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"
+      stroke="rgba(185,148,255,0.12)" stroke-width="1"/>`;
+  }).join('
+');
 
-  // Render nodes
-  const container = $('orbitNodes');
-  container.innerHTML = '';
+  // Container for beads
+  const arms = $('orbitArms');
+  arms.innerHTML = '';
 
-  function makeNode(x, y, label, dotColor, cls, id, onClick) {
-    const div = document.createElement('div');
-    div.className = 'orbit-node ' + (cls||'');
-    div.style.left = x+'px'; div.style.top = y+'px';
-    div.innerHTML = `<div class="orbit-node-inner">
-      <span class="orbit-node-dot" style="background:${dotColor}"></span>
-      <span style="overflow:hidden;text-overflow:ellipsis;max-width:11rem">${esc(label)}</span>
-    </div>`;
-    if(onClick) div.addEventListener('click', onClick);
-    container.appendChild(div);
+  // Init angles + speeds once
+  ideas.forEach((n,i) => {
+    if(orbitAngles['i'+n.id] === undefined) {
+      orbitAngles['i'+n.id] = (i/Math.max(ideas.length,1)) * Math.PI*2;
+      orbitSpeeds['i'+n.id] = 0.0008 + i*0.00006;
+    }
+  });
+  tasks.forEach((t,i) => {
+    if(orbitAngles['t'+t.id] === undefined) {
+      orbitAngles['t'+t.id] = (i/Math.max(tasks.length,1)) * Math.PI*2;
+      orbitSpeeds['t'+t.id] = 0.0005 + i*0.00004;
+    }
+  });
+
+  // Place beads
+  function placeBead(angle, rx, ry, label, cls, onClick) {
+    const x = cx + Math.cos(angle) * rx;
+    const y = cy + Math.sin(angle) * ry;
+    const bead = document.createElement('div');
+    bead.className = 'atom-bead ' + cls;
+    bead.style.left = x + 'px';
+    bead.style.top  = y + 'px';
+    bead.style.position = 'absolute';
+    // Tooltip
+    const tip = document.createElement('div');
+    tip.className = 'atom-tip';
+    tip.textContent = label;
+    bead.appendChild(tip);
+    if(onClick) bead.addEventListener('click', onClick);
+    arms.appendChild(bead);
+    return bead;
   }
 
-  ideaNodes.forEach((n,i) => {
-    const a = orbitAngles['i'+n.id];
-    const x = cx + Math.cos(a)*innerR;
-    const y = cy + Math.sin(a)*innerR*0.38;
-    makeNode(x, y, n.title, 'var(--violet)', 'idea', n.id, ()=>openEditNode(n.id));
+  // Render all beads
+  ideas.forEach((n,i) => {
+    placeBead(orbitAngles['i'+n.id], R1, R1*0.42, n.title, 'idea', ()=>openEditNode(n.id));
   });
-  taskNodes.forEach((t,i) => {
+  tasks.forEach((t,i) => {
+    const r = i < 8 ? R2 : R3;
+    const cls = 'task' + (t.tag==='seguimiento'?' seg':'');
+    placeBead(orbitAngles['t'+t.id], r, r*0.42, t.title, cls, ()=>openEditTask(t.id));
+  });
+
+  orbitBuilt = true;
+  animateOrbit();
+}
+
+function animateOrbit() {
+  const arena = $('orbitArena');
+  if(!arena || !orbitBuilt) return;
+
+  const W = arena.offsetWidth, H = arena.offsetHeight;
+  const cx = W/2, cy = H/2;
+  const ideas = state.nodes;
+  const tasks  = state.tasks.filter(t=>!t.done).slice(0,14);
+
+  const R1 = Math.min(W,H)*0.22;
+  const R2 = Math.min(W,H)*0.36;
+  const R3 = Math.min(W,H)*0.46;
+
+  // Tick angles
+  ideas.forEach(n => { if(orbitSpeeds['i'+n.id]) orbitAngles['i'+n.id] += orbitSpeeds['i'+n.id]; });
+  tasks.forEach(t  => { if(orbitSpeeds['t'+t.id]) orbitAngles['t'+t.id] += orbitSpeeds['t'+t.id]; });
+
+  // Move beads
+  const beads = $('orbitArms').querySelectorAll('.atom-bead');
+  let bIdx = 0;
+  ideas.forEach((n,i) => {
+    const a = orbitAngles['i'+n.id];
+    const x = cx + Math.cos(a)*R1;
+    const y = cy + Math.sin(a)*R1*0.42;
+    if(beads[bIdx]) { beads[bIdx].style.left=x+'px'; beads[bIdx].style.top=y+'px'; }
+    bIdx++;
+  });
+  tasks.forEach((t,i) => {
+    const r = i < 8 ? R2 : R3;
     const a = orbitAngles['t'+t.id];
-    const x = cx + Math.cos(a)*outerR;
-    const y = cy + Math.sin(a)*outerR*0.38;
-    const color = t.tag==='seguimiento'?'var(--yellow)':'var(--aqua)';
-    makeNode(x, y, t.title, color, 'task', t.id, ()=>openEditTask(t.id));
+    const x = cx + Math.cos(a)*r;
+    const y = cy + Math.sin(a)*r*0.42;
+    if(beads[bIdx]) { beads[bIdx].style.left=x+'px'; beads[bIdx].style.top=y+'px'; }
+    bIdx++;
+  });
+
+  // Update SVG lines for ideas
+  const svg = $('orbitSvg');
+  const lines = svg.querySelectorAll('line');
+  ideas.forEach((n,i) => {
+    const a = orbitAngles['i'+n.id];
+    const x = cx + Math.cos(a)*R1;
+    const y = cy + Math.sin(a)*R1*0.42;
+    if(lines[i]) { lines[i].setAttribute('x2',x); lines[i].setAttribute('y2',y); }
   });
 
   orbitAF = requestAnimationFrame(animateOrbit);
