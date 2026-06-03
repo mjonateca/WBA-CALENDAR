@@ -926,7 +926,9 @@ function openEditTask(id) {
 function saveTask() {
   const title=$('tTitle').value.trim(), date=$('tDate').value;
   if(!title||!date){ toast('Introduce título y fecha'); return; }
-  const tag = $('tTag').value;
+  // Auto-classify as seguimiento if title contains the word
+  const autoSeg = /seguimiento/i.test(title);
+  const tag = autoSeg ? 'seguimiento' : $('tTag').value;
   if(editTaskId) {
     const t=state.tasks.find(x=>x.id===editTaskId);
     if(t){ t.title=title; t.date=date; t.tag=tag; }
