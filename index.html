@@ -661,15 +661,22 @@ const disp   = ds => { const [,m,d]=ds.split('-'); return `${+d} ${MONTHS[+m-1]}
 const esc    = s  => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 
 // ── TOKEN ──
+const DEFAULT_TOKEN = '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';
+const DEFAULT_REPO  = 'mjonateca/WBA-CALENDAR';
+
 function loadToken() {
-  GH_TOKEN = localStorage.getItem('wba_token') || '';
-  GH_REPO  = localStorage.getItem('wba_repo')  || 'mjonateca/WBA-CALENDAR';
+  // Use stored token, fallback to hardcoded default
+  GH_TOKEN = localStorage.getItem('wba_token') || DEFAULT_TOKEN;
+  GH_REPO  = localStorage.getItem('wba_repo')  || DEFAULT_REPO;
+  // Always persist so it survives refreshes
+  localStorage.setItem('wba_token', GH_TOKEN);
+  localStorage.setItem('wba_repo',  GH_REPO);
   $('repoInput').value = GH_REPO;
-  if (!GH_TOKEN) $('tokenScreen').classList.add('visible');
+  // Never show token screen on load — token is pre-configured
 }
 function saveToken() {
-  const t = $('tokenInput').value.trim(), r = $('repoInput').value.trim();
-  if (!t) { toast('Introduce el token'); return; }
+  const t = $('tokenInput').value.trim() || DEFAULT_TOKEN;
+  const r = $('repoInput').value.trim()  || DEFAULT_REPO;
   GH_TOKEN = t; GH_REPO = r;
   localStorage.setItem('wba_token', t); localStorage.setItem('wba_repo', r);
   $('tokenScreen').classList.remove('visible');
@@ -986,9 +993,8 @@ function seedOnce() {
 }
 
 // ── INIT ──
-loadToken();
-if(GH_TOKEN) loadFromGH();
-else { seedOnce(); render(); }
+loadToken();  // always sets GH_TOKEN (hardcoded default)
+loadFromGH(); // always load from GitHub
 </script>
 </body>
 </html>
