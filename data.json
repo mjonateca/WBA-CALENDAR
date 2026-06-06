@@ -96,7 +96,7 @@
       "title": "Hacer PO de Bamblue Formal",
       "date": "2026-06-06",
       "tag": "",
-      "done": false
+      "done": true
     }
   ],
   "nodes": [],
@@ -104,7 +104,7 @@
     {
       "id": "mpyfl2jy0u5",
       "title": "Automatizar Procesar OC",
-      "note": "Guarda la info de la PO en el archivo de Seguimiento, y ayuda con el enviÂ­o del correo.",
+      "note": "Guarda la info de la PO en el archivo de Seguimiento, y ayuda con el enviÃÂ­o del correo.",
       "status": "pending"
     },
     {
@@ -133,7 +133,7 @@
     },
     {
       "id": "mpyk33441t6",
-      "title": "Propuesta piloto minmax tiendas pequeÃÂÃÂÃÂÃÂ±as",
+      "title": "Propuesta piloto minmax tiendas pequeÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ±as",
       "note": "",
       "status": "pending"
     }
