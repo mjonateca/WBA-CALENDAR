@@ -12,7 +12,7 @@
       "title": "Enviar Propuestas SGAs",
       "date": "2026-06-20",
       "tag": "",
-      "done": false
+      "done": true
     },
     {
       "id": "mqmd7svqb4r",
@@ -24,7 +24,7 @@
     {
       "id": "mqmd7svqw7z",
       "title": "Seguimiento Sandalias roxy Alexandra",
-      "date": "2026-06-19",
+      "date": "2026-06-21",
       "tag": "seguimiento",
       "done": false
     },
@@ -40,14 +40,14 @@
       "title": "Plan accion almacen",
       "date": "2026-06-20",
       "tag": "",
-      "done": false
+      "done": true
     },
     {
       "id": "mqmd9nkv7zg",
       "title": "mapa importaciones",
       "date": "2026-06-20",
       "tag": "",
-      "done": false
+      "done": true
     },
     {
       "id": "mqmg8wvr620",
