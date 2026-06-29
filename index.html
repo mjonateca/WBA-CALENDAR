@@ -683,19 +683,6 @@
 </head>
 <body>
 
-<!-- Token -->
-<div class="token-screen" id="tokenScreen">
-  <div class="token-box">
-    <h2>Configurar acceso</h2>
-    <p>Introduce tu GitHub Personal Access Token para sincronizar los datos con el repositorio.</p>
-    <div class="field"><label>GitHub Token</label><input type="password" id="tokenInput" placeholder="github_pat_…"></div>
-    <div class="field"><label>Repositorio</label><input type="text" id="repoInput" value="mjonateca/WBA-CALENDAR"></div>
-    <div style="display:flex;gap:0.5rem;margin-top:0.8rem">
-      <button class="btn" style="flex:1" onclick="saveToken()">Guardar y continuar</button>
-    </div>
-  </div>
-</div>
-
 <!-- Task dialog -->
 <dialog id="taskDlg">
   <h3 id="tDlgTitle">Nueva tarea</h3>
@@ -819,13 +806,6 @@
         <div class="save-dot" id="saveDot"></div>
         <span class="save-label" id="saveLabel">Listo</span>
       </div>
-      <button class="cfg-btn" onclick="document.getElementById('tokenScreen').classList.add('visible')">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <circle cx="7" cy="7" r="5.8" stroke="currentColor" stroke-width="1.3"/>
-          <circle cx="7" cy="7" r="2"   stroke="currentColor" stroke-width="1.3" fill="none"/>
-        </svg>
-        Configuración
-      </button>
     </div>
   </nav>
 
@@ -918,7 +898,6 @@
 <script>
 // ── CONFIG ──
 const DATA_FILE = 'data.json';
-let GH_TOKEN = '', GH_REPO = 'mjonateca/WBA-CALENDAR', fileSha = null;
 let dirty = false, autoTimer = null;
 
 // ── STATE ──
@@ -934,70 +913,60 @@ const fmt    = d  => d.toISOString().slice(0,10);
 const disp   = ds => { const [,m,d]=ds.split('-'); return `${+d} ${MONTHS[+m-1]}`; };
 const esc    = s  => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 
-// ── TOKEN ──
-const DEFAULT_TOKEN = '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';
-const DEFAULT_REPO  = 'mjonateca/WBA-CALENDAR';
+// Sync
+const DEFAULT_REPO = 'mjonateca/WBA-CALENDAR';
+const GH_REPO = DEFAULT_REPO;
 
-function loadToken() {
-  // Use stored token, fallback to hardcoded default
-  GH_TOKEN = localStorage.getItem('wba_token') || DEFAULT_TOKEN;
-  GH_REPO  = localStorage.getItem('wba_repo')  || DEFAULT_REPO;
-  // Always persist so it survives refreshes
-  localStorage.setItem('wba_token', GH_TOKEN);
-  localStorage.setItem('wba_repo',  GH_REPO);
-  $('repoInput').value = GH_REPO;
-  // Never show token screen on load — token is pre-configured
-}
-function saveToken() {
-  const t = $('tokenInput').value.trim() || DEFAULT_TOKEN;
-  const r = $('repoInput').value.trim()  || DEFAULT_REPO;
-  GH_TOKEN = t; GH_REPO = r;
-  localStorage.setItem('wba_token', t); localStorage.setItem('wba_repo', r);
-  $('tokenScreen').classList.remove('visible');
-  loadFromGH();
+async function fetchDataFile() {
+  const res = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${DATA_FILE}`,
+    { headers: { Accept: 'application/vnd.github+json' } });
+  if (!res.ok) {
+    let message = res.status;
+    try { message = (await res.json()).message || message; } catch {}
+    const err = new Error(message);
+    err.status = res.status;
+    throw err;
+  }
+  return res.json();
 }
 
-// ── GITHUB ──
 async function loadFromGH() {
-  if (!GH_TOKEN) return;
-  setStatus('saving','Cargando…');
+  setStatus('saving','Cargando...');
   try {
-    const res = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${DATA_FILE}`,
-      { headers: { Authorization: `token ${GH_TOKEN}`, Accept: 'application/vnd.github+json' } });
-    if (res.status === 404) { setStatus('ok','Nuevo'); render(); return; }
-    if (!res.ok) throw new Error(res.status);
-    const data = await res.json();
-    fileSha = data.sha;
+    const data = await fetchDataFile();
     const dec = JSON.parse(atob(data.content.replace(/\n/g,'')));
     state = { tasks: dec.tasks||[], nodes: dec.nodes||[], ideas: dec.ideas||[] };
     setStatus('ok','Sincronizado');
-  } catch(e) { setStatus('error','Error'); toast('Error: '+e.message); }
+  } catch(e) {
+    if (e.status === 404) { setStatus('ok','Nuevo'); render(); return; }
+    setStatus('error','Error'); toast('Error: '+e.message);
+  }
   seedOnce(); render();
 }
 
 async function push(silent) {
-  if (!GH_TOKEN) { $('tokenScreen').classList.add('visible'); return; }
-  setStatus('saving','Guardando…');
+  setStatus('saving','Guardando...');
   try {
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(state,null,2))));
-    const body = { message: `sync ${new Date().toISOString().slice(0,16).replace('T',' ')}`, content };
-    if (fileSha) body.sha = fileSha;
-    const res = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${DATA_FILE}`,{
-      method:'PUT',
-      headers:{ Authorization:`token ${GH_TOKEN}`, Accept:'application/vnd.github+json','Content-Type':'application/json'},
-      body:JSON.stringify(body)
+    const res = await fetch('/api/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(state)
     });
-    if (!res.ok) { const e=await res.json(); throw new Error(e.message||res.status); }
-    const data = await res.json();
-    fileSha = data.content.sha; dirty = false;
-    setStatus('ok','Guardado'); if(!silent) toast('Guardado en GitHub ✓');
-  } catch(e){ setStatus('error','Error'); toast('Error: '+e.message); }
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || res.status);
+    dirty = false;
+    setStatus('ok','Guardado');
+    if(!silent) toast('Guardado en GitHub');
+  } catch(e){
+    setStatus('error','Error');
+    toast('Error: '+e.message);
+  }
 }
 
 function markDirty() {
   dirty = true; setStatus('saving','Sin guardar');
   clearTimeout(autoTimer);
-  autoTimer = setTimeout(() => { if(dirty && GH_TOKEN) push(true); }, 4000);
+  autoTimer = setTimeout(() => { if(dirty) push(true); }, 4000);
 }
 function setStatus(type,label) {
   $('saveDot').className = 'save-dot '+type;
@@ -1448,8 +1417,7 @@ function seedOnce() {
 }
 
 // ── INIT ──
-loadToken();  // always sets GH_TOKEN (hardcoded default)
-loadFromGH(); // always load from GitHub
+loadFromGH();
 </script>
 </body>
 </html>
