@@ -62,6 +62,20 @@
       "date": "2026-07-01",
       "tag": "seguimiento",
       "done": false
+    },
+    {
+      "id": "mr0t13qsmoo",
+      "title": "Seguimiento Tankstream",
+      "date": "2026-07-02",
+      "tag": "seguimiento",
+      "done": false
+    },
+    {
+      "id": "mr0t17u9kck",
+      "title": "Seguimiento temas computos",
+      "date": "2026-07-03",
+      "tag": "seguimiento",
+      "done": false
     }
   ],
   "nodes": [],
