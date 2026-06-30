@@ -76,6 +76,13 @@
       "date": "2026-07-03",
       "tag": "seguimiento",
       "done": false
+    },
+    {
+      "id": "mr0t1bwkjls",
+      "title": "enviar propuestas SGA",
+      "date": "2026-07-02",
+      "tag": "",
+      "done": false
     }
   ],
   "nodes": [],
