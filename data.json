@@ -82,7 +82,7 @@
       "title": "enviar propuestas SGA",
       "date": "2026-07-02",
       "tag": "",
-      "done": false
+      "done": true
     },
     {
       "id": "mr0t1hrq0cc",
@@ -94,7 +94,7 @@
     {
       "id": "mr0vggn50hf",
       "title": "Pedido Sugerido Cova",
-      "date": "2026-07-02",
+      "date": "2026-07-04",
       "tag": "",
       "done": false
     },
@@ -115,7 +115,7 @@
     {
       "id": "mr240ktn2yo",
       "title": "Seguimiento Petite Jolie manchados",
-      "date": "2026-07-02",
+      "date": "2026-07-03",
       "tag": "seguimiento",
       "done": false
     },
