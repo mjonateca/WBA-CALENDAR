@@ -89,12 +89,12 @@
       "title": "Pedido New Executive",
       "date": "2026-07-01",
       "tag": "",
-      "done": false
+      "done": true
     },
     {
       "id": "mr0vggn50hf",
       "title": "Pedido Sugerido Cova",
-      "date": "2026-07-01",
+      "date": "2026-07-02",
       "tag": "",
       "done": false
     },
@@ -124,7 +124,7 @@
       "title": "Seguimiento Saint Barth",
       "date": "2026-07-01",
       "tag": "seguimiento",
-      "done": false
+      "done": true
     }
   ],
   "nodes": [],
