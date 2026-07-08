@@ -125,6 +125,13 @@
       "date": "2026-07-01",
       "tag": "seguimiento",
       "done": true
+    },
+    {
+      "id": "mrc5spsqke1",
+      "title": "Ventas Aguamenta preparar",
+      "date": "2026-07-08",
+      "tag": "",
+      "done": false
     }
   ],
   "nodes": [],
