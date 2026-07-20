@@ -163,9 +163,16 @@
     },
     {
       "id": "mrtftrb8ihh",
-      "title": "Seguimiento Dañados petite jolie",
+      "title": "Seguimiento DaÃ±ados petite jolie",
       "date": "2026-07-21",
       "tag": "seguimiento",
+      "done": false
+    },
+    {
+      "id": "mrtr5stzqpb",
+      "title": "Ver facturas pendientes envio Italia",
+      "date": "2026-07-21",
+      "tag": "",
       "done": false
     }
   ],
