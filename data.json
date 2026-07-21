@@ -163,7 +163,7 @@
     },
     {
       "id": "mrtftrb8ihh",
-      "title": "Seguimiento DaÃ±ados petite jolie",
+      "title": "Seguimiento DaÃÂ±ados petite jolie",
       "date": "2026-07-21",
       "tag": "seguimiento",
       "done": false
@@ -180,6 +180,13 @@
       "title": "Ver facturas pendientes envio Colombia",
       "date": "2026-07-21",
       "tag": "",
+      "done": false
+    },
+    {
+      "id": "mrut4m1pvwy",
+      "title": "Seguimiento NC TankStream",
+      "date": "2026-07-24",
+      "tag": "seguimiento",
       "done": false
     }
   ],
