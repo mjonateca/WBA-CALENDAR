@@ -157,7 +157,7 @@
     {
       "id": "mrtftfp38qi",
       "title": "seguyimiento RAMON",
-      "date": "2026-07-21",
+      "date": "2026-07-23",
       "tag": "",
       "done": false
     },
@@ -186,6 +186,13 @@
       "id": "mrut4m1pvwy",
       "title": "Seguimiento NC TankStream",
       "date": "2026-07-24",
+      "tag": "seguimiento",
+      "done": false
+    },
+    {
+      "id": "mruv0nz73xl",
+      "title": "Seguimiento FEDEX ENVIO WEI: # 8746 4160 4377",
+      "date": "2026-07-23",
       "tag": "seguimiento",
       "done": false
     }
