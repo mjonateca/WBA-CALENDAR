@@ -143,14 +143,14 @@
     {
       "id": "mrntmcsxwhu",
       "title": "seguimiento Hector",
-      "date": "2026-07-22",
+      "date": "2026-07-23",
       "tag": "seguimiento",
       "done": false
     },
     {
       "id": "mrntmjntkj4",
       "title": "seguimiento Ambiory",
-      "date": "2026-07-22",
+      "date": "2026-07-23",
       "tag": "seguimiento",
       "done": false
     },
@@ -163,7 +163,7 @@
     },
     {
       "id": "mrtftrb8ihh",
-      "title": "Seguimiento DaÃÂ±ados petite jolie",
+      "title": "Seguimiento DaÃÂÃÂ±ados petite jolie",
       "date": "2026-07-23",
       "tag": "seguimiento",
       "done": false
@@ -173,14 +173,14 @@
       "title": "Ver facturas pendientes envio Italia",
       "date": "2026-07-22",
       "tag": "",
-      "done": false
+      "done": true
     },
     {
       "id": "mrtr5yn6k2u",
       "title": "Ver facturas pendientes envio Colombia",
       "date": "2026-07-22",
       "tag": "",
-      "done": false
+      "done": true
     },
     {
       "id": "mrut4m1pvwy",
