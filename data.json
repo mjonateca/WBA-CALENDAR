@@ -157,7 +157,7 @@
     {
       "id": "mrtftfp38qi",
       "title": "seguyimiento RAMON",
-      "date": "2026-07-23",
+      "date": "2026-07-27",
       "tag": "",
       "done": false
     },
@@ -194,7 +194,7 @@
       "title": "Seguimiento FEDEX ENVIO WEI: # 8746 4160 4377",
       "date": "2026-07-23",
       "tag": "seguimiento",
-      "done": false
+      "done": true
     }
   ],
   "nodes": [],
