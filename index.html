@@ -683,6 +683,19 @@
 </head>
 <body>
 
+<div class="token-screen" id="tokenScreen">
+  <div class="token-box">
+    <h2>Sincronizacion</h2>
+    <p>Guarda un token local de GitHub para usarlo si el guardado de Vercel falla. El token se queda solo en este navegador.</p>
+    <div class="field"><label>Repositorio</label><input type="text" id="repoInput" value="mjonateca/WBA-CALENDAR"></div>
+    <div class="field"><label>Token GitHub</label><input type="password" id="tokenInput" placeholder="github_pat_..."></div>
+    <div class="dlg-footer">
+      <button class="btn ghost small" onclick="closeSyncSettings()">Cancelar</button>
+      <button class="btn small" onclick="saveSyncSettings()">Guardar token</button>
+    </div>
+  </div>
+</div>
+
 <!-- Task dialog -->
 <dialog id="taskDlg">
   <h3 id="tDlgTitle">Nueva tarea</h3>
@@ -806,6 +819,7 @@
         <div class="save-dot" id="saveDot"></div>
         <span class="save-label" id="saveLabel">Listo</span>
       </div>
+      <button class="cfg-btn" onclick="openSyncSettings()">Sincronizacion</button>
     </div>
   </nav>
 
@@ -915,11 +929,43 @@ const esc    = s  => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').re
 
 // Sync
 const DEFAULT_REPO = 'mjonateca/WBA-CALENDAR';
-const GH_REPO = DEFAULT_REPO;
+let GH_REPO = localStorage.getItem('wba_repo') || DEFAULT_REPO;
+
+function getLocalToken() {
+  return localStorage.getItem('wba_token') || '';
+}
+
+function ghHeaders(includeToken) {
+  const headers = { Accept: 'application/vnd.github+json' };
+  const token = getLocalToken();
+  if (includeToken && token) headers.Authorization = `Bearer ${token}`;
+  return headers;
+}
+
+function openSyncSettings() {
+  $('repoInput').value = GH_REPO;
+  $('tokenInput').value = '';
+  $('tokenScreen').classList.add('visible');
+}
+
+function closeSyncSettings() {
+  $('tokenScreen').classList.remove('visible');
+}
+
+function saveSyncSettings() {
+  const repo = $('repoInput').value.trim() || DEFAULT_REPO;
+  const token = $('tokenInput').value.trim();
+  GH_REPO = repo;
+  localStorage.setItem('wba_repo', repo);
+  if (token) localStorage.setItem('wba_token', token);
+  closeSyncSettings();
+  toast(token ? 'Token guardado en este navegador' : 'Repositorio actualizado');
+  if (dirty) push(true);
+}
 
 async function fetchDataFile() {
   const res = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${DATA_FILE}`,
-    { headers: { Accept: 'application/vnd.github+json' } });
+    { headers: ghHeaders(false) });
   if (!res.ok) {
     let message = res.status;
     try { message = (await res.json()).message || message; } catch {}
@@ -958,9 +1004,65 @@ async function push(silent) {
     setStatus('ok','Guardado');
     if(!silent) toast('Guardado en GitHub');
   } catch(e){
-    setStatus('error','Error');
-    toast('Error: '+e.message);
+    const token = getLocalToken();
+    if (token) {
+      try {
+        await pushViaGitHub(silent);
+        return;
+      } catch(localError) {
+        setStatus('error','Error');
+        toast('Error GitHub: '+localError.message);
+        if (localError.status === 401 || localError.status === 403) openSyncSettings();
+        return;
+      }
+    }
+    setStatus('error','Falta token');
+    toast('Guarda un token en Sincronizacion');
+    openSyncSettings();
   }
+}
+
+async function pushViaGitHub(silent, retry = true) {
+  setStatus('saving','Guardando GitHub...');
+  const current = await fetchDataFileWithToken();
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify({
+    tasks: state.tasks,
+    nodes: state.nodes,
+    ideas: state.ideas
+  }, null, 2))));
+
+  const res = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${DATA_FILE}`, {
+    method: 'PUT',
+    headers: { ...ghHeaders(true), 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      message: 'sync calendar data',
+      content,
+      sha: current.sha,
+      branch: 'main'
+    })
+  });
+  const data = await res.json().catch(() => ({}));
+  if (res.status === 409 && retry) return pushViaGitHub(silent, false);
+  if (!res.ok) {
+    const err = new Error(data.message || res.status);
+    err.status = res.status;
+    throw err;
+  }
+  dirty = false;
+  setStatus('ok','Guardado');
+  if(!silent) toast('Guardado en GitHub');
+}
+
+async function fetchDataFileWithToken() {
+  const res = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${DATA_FILE}`,
+    { headers: ghHeaders(true) });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const err = new Error(data.message || res.status);
+    err.status = res.status;
+    throw err;
+  }
+  return data;
 }
 
 function markDirty() {
@@ -1421,4 +1523,3 @@ loadFromGH();
 </script>
 </body>
 </html>
-
