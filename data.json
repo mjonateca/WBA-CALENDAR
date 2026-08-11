@@ -195,6 +195,13 @@
       "date": "2026-07-23",
       "tag": "seguimiento",
       "done": true
+    },
+    {
+      "id": "msopdwyyu6a",
+      "title": "SEGUIMIENTO ZEBRAS",
+      "date": "2026-08-13",
+      "tag": "seguimiento",
+      "done": false
     }
   ],
   "nodes": [],
