@@ -187,7 +187,7 @@
       "title": "Seguimiento NC TankStream",
       "date": "2026-08-12",
       "tag": "seguimiento",
-      "done": false
+      "done": true
     },
     {
       "id": "mruv0nz73xl",
@@ -199,7 +199,7 @@
     {
       "id": "msopdwyyu6a",
       "title": "SEGUIMIENTO ZEBRAS",
-      "date": "2026-08-13",
+      "date": "2026-08-18",
       "tag": "seguimiento",
       "done": false
     }
