@@ -209,6 +209,20 @@
       "date": "2026-08-21",
       "tag": "seguimiento",
       "done": false
+    },
+    {
+      "id": "msz5eqjgsxz",
+      "title": "Pedido Ropa Deportiva",
+      "date": "2026-08-19",
+      "tag": "",
+      "done": false
+    },
+    {
+      "id": "msz5eysf2rx",
+      "title": "Reparto y concentracion quiksilver/roxy",
+      "date": "2026-08-19",
+      "tag": "",
+      "done": false
     }
   ],
   "nodes": [],
