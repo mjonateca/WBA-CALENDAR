@@ -237,6 +237,27 @@
       "date": "2026-09-01",
       "tag": "seguimiento",
       "done": false
+    },
+    {
+      "id": "mthebxlyw8n",
+      "title": "Seguimiento Claudia",
+      "date": "2026-08-31",
+      "tag": "seguimiento",
+      "done": false
+    },
+    {
+      "id": "mthec0a9ya9",
+      "title": "Seguimiento Yana",
+      "date": "2026-08-31",
+      "tag": "seguimiento",
+      "done": false
+    },
+    {
+      "id": "mthec2tggua",
+      "title": "Seguimiento Zuli",
+      "date": "2026-08-31",
+      "tag": "seguimiento",
+      "done": false
     }
   ],
   "nodes": [],
