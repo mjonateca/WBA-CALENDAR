@@ -264,14 +264,14 @@
       "title": "carnet vc",
       "date": "2026-09-02",
       "tag": "",
-      "done": false
+      "done": true
     },
     {
       "id": "mtj47ejv0tm",
       "title": "SEGUIMIENTO RAMON CRISTALES",
       "date": "2026-09-02",
       "tag": "seguimiento",
-      "done": false
+      "done": true
     }
   ],
   "nodes": [],
