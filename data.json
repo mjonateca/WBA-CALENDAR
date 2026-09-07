@@ -274,10 +274,17 @@
       "done": true
     },
     {
-      "id": "mtrdzne7n5b",
-      "title": "HORNO EMPOTRABLE",
+      "id": "mtre02rv354",
+      "title": "horno empotrable",
       "date": "2026-09-10",
       "tag": "",
+      "done": false
+    },
+    {
+      "id": "mtrq4jyfamw",
+      "title": "Seguimiento estanterias",
+      "date": "2026-09-08",
+      "tag": "seguimiento",
       "done": false
     }
   ],
