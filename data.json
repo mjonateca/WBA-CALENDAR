@@ -313,7 +313,7 @@
       "title": "seguimiento nc bw usa",
       "date": "2026-10-22",
       "tag": "seguimiento",
-      "done": false
+      "done": true
     },
     {
       "id": "mvidpj3ffoe",
@@ -327,21 +327,21 @@
       "title": "HACER REPARTO M&m NUEVAMENTE",
       "date": "2026-10-24",
       "tag": "",
-      "done": false
+      "done": true
     },
     {
       "id": "mvjt67l2ryq",
       "title": "Hacer pedidos nuevamente",
       "date": "2026-10-24",
       "tag": "",
-      "done": false
+      "done": true
     },
     {
       "id": "mvjzq4pctcp",
       "title": "pedir takis",
       "date": "2026-10-22",
       "tag": "",
-      "done": false
+      "done": true
     }
   ],
   "nodes": [],
